@@ -26,3 +26,14 @@ services:
     environment:
       RABBITMQ_URL: amqp://rabbitmq:5672
       MONGO_URL: mongodb://mongo:27017
+  cooperatives:
+    image: osbb/cooperatives-service
+    links:
+    - mongo
+    - rabbitmq
+    depends_on:
+    - mongo
+    - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq:5672
+      MONGO_URL: mongodb://mongo:27017
