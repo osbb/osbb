@@ -1,0 +1,28 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+  rabbitmq:
+    image: rabbitmq:3
+    hostname: rabbitmq
+  asyncapi:
+    image: osbb/asyncapi-service
+    ports:
+    - "3001:3001"
+    links:
+    - rabbitmq
+    depends_on:
+    - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq:5672
+  decisions:
+    image: osbb/decisions-service
+    links:
+    - mongo
+    - rabbitmq
+    depends_on:
+    - mongo
+    - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq:5672
+      MONGO_URL: mongodb://mongo:27017
