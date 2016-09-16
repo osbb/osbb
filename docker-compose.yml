@@ -6,9 +6,11 @@ services:
     - ./.data/mongo:/data/db
   rabbitmq:
     image: rabbitmq:3-management
-    hostname: rabbitmq
+    hostname: osbb
     ports:
     - "15672:15672"
+    volumes:
+    - ./.data/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@osbb
   asyncapi:
     image: osbb/asyncapi-service
     ports:
