@@ -2,9 +2,13 @@ version: '2'
 services:
   mongo:
     image: mongo
+    volumes:
+    - ./.data/mongo:/data/db
   rabbitmq:
-    image: rabbitmq:3
+    image: rabbitmq:3-management
     hostname: rabbitmq
+    ports:
+    - "15672:15672"
   asyncapi:
     image: osbb/asyncapi-service
     ports:
