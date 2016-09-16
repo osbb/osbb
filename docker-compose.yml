@@ -21,6 +21,10 @@ services:
     - rabbitmq
     environment:
       RABBITMQ_URL: amqp://rabbitmq:5672
+  webui:
+    image: osbb/webui
+    ports:
+    - "3000:80"
   decisions:
     image: osbb/decisions-service
     links:
