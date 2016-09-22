@@ -2,22 +2,15 @@ version: '2'
 services:
   mongo:
     image: mongo
-    ports:
-    - "27017:27017"
     volumes:
     - ./.data/mongo:/data/db
   rabbitmq:
-    image: rabbitmq:3-management
+    image: rabbitmq:3
     hostname: osbb
-    ports:
-    - "5672:5672"
-    - "15672:15672"
     volumes:
     - ./.data/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@osbb
   asyncapi:
     image: osbb/asyncapi-service
-    ports:
-    - "3001:3001"
     links:
     - rabbitmq
     depends_on:
