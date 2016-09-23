@@ -9,6 +9,8 @@ services:
     hostname: osbb
     volumes:
     - ./.data/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@osbb
+  redis:
+    image: redis
   asyncapi:
     image: osbb/asyncapi-service
     links:
@@ -25,6 +27,17 @@ services:
     - asyncapi
   decisions:
     image: osbb/decisions-service
+    links:
+    - mongo
+    - rabbitmq
+    depends_on:
+    - mongo
+    - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq:5672
+      MONGO_URL: mongodb://mongo:27017
+  flats:
+    image: osbb/flats-service
     links:
     - mongo
     - rabbitmq
@@ -56,3 +69,17 @@ services:
     environment:
       RABBITMQ_URL: amqp://rabbitmq:5672
       MONGO_URL: mongodb://mongo:27017
+  auth:
+    image: osbb/auth-service
+    links:
+    - mongo
+    - rabbitmq
+    - redis
+    depends_on:
+    - mongo
+    - rabbitmq
+    - redis
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq:5672
+      MONGO_URL: mongodb://mongo:27017
+      REDIS_URL: redis://redis:6379
