@@ -114,3 +114,13 @@ services:
       RABBITMQ_URL: amqp://rabbitmq:5672
       MONGO_URL: mongodb://mongo:27017
       REDIS_URL: redis://redis:6379
+  invoices-printing:
+    image: osbb/invoices-printing-service
+    links:
+    - rabbitmq
+    depends_on:
+    - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq:5672
+      AWS_ACCESS_KEY_ID: <your_aws_access_key_id>
+      AWS_SECRET_ACCESS_KEY: <your_aws_secret_access_key>
