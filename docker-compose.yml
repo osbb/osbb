@@ -15,7 +15,7 @@ services:
     volumes:
     - ./.data/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@osbb
   redis:
-    image: redis
+    image: redis:3
     ports:
     - "6379:6379"
   asyncapi:

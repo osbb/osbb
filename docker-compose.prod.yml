@@ -10,7 +10,7 @@ services:
     volumes:
     - ./.data/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@osbb
   redis:
-    image: redis
+    image: redis:3
   asyncapi:
     image: osbb/asyncapi-service
     links:
