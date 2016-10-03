@@ -1,7 +1,7 @@
 version: '2'
 services:
   mongo:
-    image: mongo
+    image: mongo:3
     volumes:
     - ./.data/mongo:/data/db
   rabbitmq:
