@@ -91,6 +91,17 @@ services:
     environment:
       RABBITMQ_URL: amqp://rabbitmq:5672
       MONGO_URL: mongodb://mongo:27017
+  transactions:
+    image: osbb/transactions-service
+    links:
+    - mongo
+    - rabbitmq
+    depends_on:
+    - mongo
+    - rabbitmq
+    environment:
+      RABBITMQ_URL: amqp://rabbitmq:5672
+      MONGO_URL: mongodb://mongo:27017
   auth:
     image: osbb/auth-service
     links:
